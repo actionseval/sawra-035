@@ -18,7 +18,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install Dependencies
         run: |
-          apt install -y base-files bash coreutils libc-bin libc6:amd64 libpython3.12-minimal:amd64 libpython3.12-stdlib:amd64 locales ncurses-base openssl python3.12-minimal tzdata
+          # apt install -y base-files bash coreutils libc-bin libc6:amd64 libpython3.12-minimal:amd64 libpython3.12-stdlib:amd64 locales ncurses-base openssl python3.12-minimal tzdata
           pip install pytz==2025.2
       - run: |
           python test.py
