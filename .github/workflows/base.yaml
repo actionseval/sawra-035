@@ -1,0 +1,24 @@
+name: pyecharts CI
+# on: push
+on: [repository_dispatch, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        python-version:
+          - '3.12'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        run: |
+          apt install -y base-files bash coreutils libc-bin libc6:amd64 libpython3.12-minimal:amd64 libpython3.12-stdlib:amd64 locales ncurses-base openssl python3.12-minimal tzdata
+          pip install pytz==2025.2
+      - name: Execute Tests
+        run: |
+          python test.py

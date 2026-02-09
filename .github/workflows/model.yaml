@@ -1,0 +1,26 @@
+name: CI
+
+# on: [push, pull_request]
+on: [repository_dispatch, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dependencies
+        run: |
+          pip install jinja2>=2.11.3 prettytable simplejson
+          pip install black==24.3.0 isort==4.3.16
+          pip install nose2 codecov coverage flake8 mccabe Pillow pytest pytest-cov numpy pandas
+
+      - name: Run script
+        run: |
+          python test.py
