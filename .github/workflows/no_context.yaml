@@ -1,0 +1,23 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install system packages
+        run: apt install -y base-files bash coreutils libc-bin libc6:amd64 libpython3.12-minimal:amd64 libpython3.12-stdlib:amd64 locales ncurses-base openssl python3.12-minimal tzdata
+
+      - name: Install Python dependencies
+        run: pip install pytz==2025.2
+
+      - name: Run tests
+        run: python test.py
